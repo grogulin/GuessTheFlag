@@ -13,12 +13,16 @@ struct Title: ViewModifier {
             content
                 .frame(maxWidth: .infinity)
                 .font(.largeTitle)
-//                .foregroundColor(.white)
-                .foregroundStyle(.secondary)
+                .foregroundColor(.white)
                 .padding()
-                .background(.ultraThinMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
         }
+}
+
+extension View {
+    func titleModifier() -> some View {
+        modifier(Title())
+    }
 }
 
 struct ContentView: View {
@@ -58,9 +62,7 @@ struct ContentView: View {
             VStack {
                 Spacer()
                 Text("Guess the Flag!")
-//                    .font(.largeTitle.weight(.light))
-//                    .foregroundColor(.white)
-                    .modifier(Title())
+                    .titleModifier()
                 Text("Round \(currentRound) of 8")
                     .font(.title.weight(.light))
                     .foregroundColor(.white)
@@ -81,10 +83,6 @@ struct ContentView: View {
                             //flag was tapped
                             flagTapped(number)
                         } label: {
-//                            Image(countries[number])
-//                                .renderingMode(.original)
-//                                .clipShape(Capsule())
-//                                .shadow(radius: 5)
                             FlagImage(countries[number])
                         }
                     }
